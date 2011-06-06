@@ -1,0 +1,249 @@
+div#roles_manager {
+  margin:0 auto;
+  padding:0.2em;
+  color:#2a2a2a;
+  font-size:12px;
+  font-weight:normal;
+}
+
+#roles_manager div.roles_manager_wrap {
+    clear:both;
+    margin:1em auto;
+    padding:0.1em;
+}
+
+/**
+   -----------------------------
+         - INDEX TABLE -
+   -----------------------------
+ **/
+
+#roles_manager table#roles_manager_roles {
+    margin:0.2em auto 0.6em;
+    width:100%;
+    text-align:left;
+    border-collapse: collapse;
+    border:1px solid #e3e3e3;
+}
+
+#roles_manager table#roles_manager_roles th,
+#roles_manager table.roles_permissions th {
+    margin:0 auto;
+    height:2.4em;
+    background-color:#fafafa;
+    color:#3d3d3d;
+    border-bottom:1px solid #e3e3e3;
+}
+
+#roles_manager th.roles_id,
+#roles_manager td.roles_id {
+    width:3em;
+    padding:0 1em;
+    text-align:right;
+    color:#5c5c5c;
+}
+
+#roles_manager th.roles_name,
+#roles_manager td.roles_name {
+    padding:0 1em;
+    text-align:left;
+}
+
+#roles_manager td.roles_name {
+    border-left:1px solid #f2f2f2;
+}
+
+#roles_manager th.roles_action,
+#roles_manager td.roles_action {
+    width:8em;
+    text-align:center;
+}
+
+#roles_manager td.roles_action {
+    border-left:1px solid #f2f2f2;
+}
+
+#roles_manager tr.role {
+    line-height:2.5em;
+    color:#363636;
+    font-size:1em;
+    border-top:1px solid #f2f2f2;
+}
+
+/**
+   -----------------------------
+          - EDIT TABLE -
+   -----------------------------
+ **/
+
+#roles_manager fieldset.roles_details {
+    margin:0.2em auto;
+    padding:0.2em 1em 0.6em;
+    width:88%;
+    font-size:1.2em;
+    text-align:left;
+    border:1px solid #ebebeb;
+    text-align:left;
+}
+#roles_manager fieldset.roles_details legend {
+    margin:0.2em 0;
+    padding:0.2em;
+    font-size:1.2em;
+    color:#adadad;
+    text-align:left;
+}
+#roles_manager fieldset.roles_details ol.inputfields {
+    list-style-type:none;
+}
+
+#roles_manager fieldset.roles_details ol.inputfields li.fields {
+    margin:0.2em 0;
+    padding:0.1em 0;
+}
+
+#roles_manager fieldset.roles_details ol label {
+    font-size:1.1em;
+    color:#5c5c5c;
+}
+
+#roles_manager table.roles_permissions label.toggle_role_permission {
+    cursor:pointer;
+}
+
+#roles_manager table#permissions_assigned label.toggle_role_permission:hover {
+    text-decoration:underline;
+    color:#992222;
+}
+
+#roles_manager table#permissions_available label.toggle_role_permission:hover {
+    text-decoration:underline;
+    color:#76a83a;
+}
+
+#roles_manager li.fields input.textbox {
+    margin:0.2em 0;
+    padding:0.2em;
+    font-size:1.2em;
+    line-height:0.4em;
+}
+
+#roles_manager li.fields span.help {
+    margin:0;
+    padding:0 0.8em;
+    font-size:0.82em;
+    font-style:italic;
+    color: #6b6b6b;
+    vertical-align:middle;
+}
+
+#roles_manager table.roles_permissions {
+    margin:0.4em auto 0.6em;
+    width:100%;
+    font-size:0.85em;
+    text-align:left;
+    border-collapse: collapse;
+    border:1px solid #e3e3e3;
+}
+
+#roles_manager table.roles_permissions caption {
+    margin:0 0.2em 0.8em;
+    font-size:1.2em;
+    text-align:left;
+}
+
+#roles_manager th.permission_enabled,
+#roles_manager td.permission_enabled {
+    width:4em;
+    padding:0 0.4em;
+    text-align:center;
+}
+
+#roles_manager td.permission_enabled {
+    border-right:1px solid #f2f2f2;
+}
+
+#roles_manager th.permission_name,
+#roles_manager td.permission_name {
+    padding:0 1em;
+    text-align:left;
+}
+
+#roles_manager tr.permission {
+    height:2.6em;
+    color:#363636;
+    font-size:1em;
+    border-top:1px solid #f2f2f2;
+}
+
+#roles_manager tr.odd {
+    color:#4d4d4d;
+    background-color:#fdfdfd;
+    border-top:1px solid #ececec;
+}
+
+#roles_manager tr.even {
+    color:#1a1a1a;
+    background-color:#f5f5f5;
+    border-top:1px solid #ececec;
+}
+
+#roles_manager tr.no_permissions td {
+    margin:1em auto;
+    padding:0.8em 1em;
+    width:100%;
+    text-align:left;
+    background-color:#fefefe;
+    border:1px solid #ececec;        
+}
+
+/**
+   -----------------------------
+     - GENERAL FORM ELEMENTS - 
+   -----------------------------
+ **/
+
+#roles_manager p.buttons {
+    margin:1em;
+    font-size:0.85em;
+}
+
+#roles_manager p.buttons .button {
+    margin:0 0.2em;
+    padding:0.2em 0.4em;
+    color:#1a1a1a;
+    background-color:#f8f8f8;
+    border:1px solid #ececec;
+}
+
+#roles_manager p.buttons .button:hover {
+    border:1px solid #76a83a;
+    cursor:pointer;
+}
+
+#roles_manager p.buttons a {
+    margin:0 0.2em;
+    font-size:1.1em;
+}
+
+#roles_manager img.inline_icon {    
+    margin:0 0.3em;
+    padding:0;
+    height:16px;
+    width:16px;
+    vertical-align:middle;
+}
+
+#roles_manager .hidden { display:none; }
+
+#roles_manager a:link,
+#roles_manager a:visited {
+    color:#1a1a1a;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+#roles_manager a:hover,
+#roles_manager a:active {
+    text-decoration:underline;
+    color:#76a83a;
+}
