@@ -12,6 +12,11 @@ Roles Manager
 
 ## Changelog
 
+#### Version 0.1.1
+
+. css changes
++ added Documentation
+
 #### Version 0.1.0
 
 - initial release for Wolf 0.7.5
