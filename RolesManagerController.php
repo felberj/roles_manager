@@ -45,6 +45,17 @@ class RolesManagerController extends PluginController {
         );
 	}
 
+	public function documentation() {
+	    $locale = strtolower(i18n::getLocale());
+	    $local_doc = $locale . '-documentation';
+	    $path = PLUGINS_ROOT . '/roles_manager/views/documentation/';
+
+	    if (!file_exists( $path . $local_doc . '.php' ))
+	        $local_doc = 'en-documentation';
+
+	    $this->display( PLUGIN_ROLESMANAGER_VIEWS_BASE . 'documentation/' . $local_doc );
+	}
+
 /*---------------------------------------------------------------------------
                           - ROLES actions -
   ---------------------------------------------------------------------------*/

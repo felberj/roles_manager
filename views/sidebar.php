@@ -30,4 +30,10 @@ if (!defined('IN_CMS')) { exit(); }
             <?php echo __('Manage Roles'); ?>
         </a>
     </p>
+    <p class="button">
+        <a href="<?php echo get_url('plugin/roles_manager/documentation'); ?>">
+            <img src="<?php echo ICONS_URI; ?>file-unknown-32.png" align="middle" alt="dir icon" />
+            <?php echo __('Documentation'); ?>
+        </a>
+    </p>
 </div>

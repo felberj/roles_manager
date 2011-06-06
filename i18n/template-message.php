@@ -48,7 +48,6 @@ return array(
 	"The <strong>:name</strong> role was saved succesfully!" => "",
 	"The Role <strong>ID</strong> is not valid!" => "",
 	"You can't delete the '<strong>:name</strong>' role!" => "",
-    "You do not have permission to access the requested page!" => "",
 	"You do not have permission to activate or use this plugin!" => "",
 	"You must specify the Role's <strong>name</strong>!" => "",
 );

@@ -12,9 +12,9 @@
 
 return array(
     "Add Role" => "Agregar Rol",
-	"Allow" => "Otorgar",
     "Are you sure you want to delete this role?" => "&iquest;Est&aacute;s seguro que quieres eliminar este rol?",
 	"Assign permission ':name'" => "Asignar permiso ':name'",
+	"Allow" => "Otorgar",
     "Cancel" => "Cancelar",
     "Create new Role" => "Crear nuevo Rol",
     "Delete the ':name' role" => "Eliminar el rol ':name'",
@@ -38,7 +38,7 @@ return array(
 	"Role Details" => "Datos del Rol",
 	"Role Permissions" => "Permisos del Rol",
     "Role not found!" => "&iexcl;Rol no encontrado!",
-    "Roles Manager" => "Gesti&oacute;n de Roles",
+    "Roles Manager" => "Administrar Roles",
     "Save" => "Guardar",
     "The :name role <strong>permissions</strong> could not be deleted!" => "&iexcl;Los <strong>permisos</strong> del rol :name no pudieron ser eliminados!",
     "The <strong>:name</strong> role <strong>permissions</strong> could not be saved!" => "&iexcl;Los <strong>permisos</strong> del rol <strong>:name</strong> no pudieron guardarse!",
