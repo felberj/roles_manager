@@ -21,7 +21,7 @@ return array(
 	"Deleting the ':name' role is disabled" => "",
 	"Edit Role" => "",
 	"Edit the ':name' role" => "",
-	"ID" => "",
+	"ID" => "ID",
 	"Invalid CSRF token found!" => "",
 	"Manage Roles" => "",
 	"Manage Roles and their permissions." => "",

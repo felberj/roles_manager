@@ -12,6 +12,10 @@ Roles Manager
 
 ## Changelog
 
+#### Version 0.1.?
+
++ added german translation and german documentation, thanks to Dirk Digweed
+
 #### Version 0.1.1
 
 . css changes
