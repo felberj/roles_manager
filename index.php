@@ -15,11 +15,12 @@
 
 if (!defined('IN_CMS')) { exit(); }
 
+
 Plugin::setInfos(array(
     'id'	=> 'roles_manager',
     'title'	=> __('Roles Manager'),
     'description'	=> __('Manage Roles and their permissions.'),
-    'version'	=> '0.1.1',
+    'version'	=> '0.1.2',
     'license'	=> 'GPL',
     'author'	=> 'andrewmman',
     'update_url'  => 'http://andrewmman.byethost7.com/wolfplugins.xml',
