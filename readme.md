@@ -12,8 +12,10 @@ Roles Manager
 
 ## Changelog
 
-#### Version 0.1.?
+#### Version 0.1.2
 
+. fix css issues with Dashboard stylesheet
++ added notifications for the Dashboard plugin
 + added german translation and german documentation, thanks to Dirk Digweed
 
 #### Version 0.1.1
