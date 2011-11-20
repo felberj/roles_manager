@@ -5,7 +5,7 @@
  *
  * @package Plugins
  * @subpackage roles_manager
- * @version 0.1.2
+ * @version 0.1.4
  *
  * @author andrewmman <andrewmman@gmail.com>
  */
