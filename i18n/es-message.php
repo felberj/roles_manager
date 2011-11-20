@@ -8,10 +8,12 @@
  * @version 0.1.2
  *
  * @author andrewmman <andrewmman@gmail.com>
- * @todo include new strings
  */
 
 return array(
+    "1 user" => "1 usuario",
+    ":n users" => ":n usuarios",
+    ":role Users" => "Usuarios :role",
     "Add Role" => "Agregar Rol",
     "Are you sure you want to delete this role?" => "&iquest;Est&aacute;s seguro que quieres eliminar este rol?",
 	"Assign permission ':name'" => "Asignar permiso ':name'",
@@ -23,6 +25,7 @@ return array(
     "Edit Role" => "Editar Rol",
     "Edit the ':name' role" => "Editar el rol :name",
     "ID" => "ID",
+	"If you assign permissions to the new role, they'll appear here." => "Aquí se mostrar&aacute;n los permisos asignados al nuevo rol.",
 	"Invalid CSRF token found!" => "&iexcl;Se ha encontrado un token CSRF inv&aacute;lido!",
     "Manage Roles" => "Gestionar Roles",
     "Manage Roles and their permissions." => "Gestionar Roles y sus permisos.",
@@ -48,6 +51,7 @@ return array(
     "The <strong>:name</strong> role has all the available permissions already assigned." => "El rol <strong>:name</strong> ya tiene asignados todos los permisos posibles.",
     "The <strong>:name</strong> role was saved succesfully!" => "&iexcl;El rol <strong>:name</strong> ha sido guardado exitosamente!",
     "The Role <strong>ID</strong> is not valid!" => "&iexcl;La <strong>ID</strong> no es v&aacute;lida!",
+	"Users with the <strong>:role</strong> role." => "Usuarios con el rol <strong>:role</strong>.",
     "You can't delete the <strong>':name'</strong> role!" => "&iexcl;No puedes eliminar el rol <strong>':name'</strong>!",
     "You do not have permission to access the requested page!" => "&iexcl;No tienes permisos para acceder a la p&aacute;gina solicitada!",
     "You do not have permission to activate or use this plugin!" => "&iexcl;No tienes los permisos para activar o usar este plugin!",
