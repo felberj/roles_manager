@@ -1,15 +1,14 @@
 <?php
 
 /**
-  *  Roles Manager plugin pre-release for Wolf CMS
-  *  Available on the forum
+  *  Roles Manager plugin for Wolf CMS
   * 
   *  Manage Roles and assign/remove permissions.
   *
   *  @author andrewmman <andrewmman@gmail.com>
   *  @package Plugins
   *  @subpackage roles_manager
-  *  @version 0.0.1
+  *  @version 0.1.4
   *  @copyright andrewmman, 2011
   *  @license http://www.gnu.org/licenses/gpl.html GPLv3 license
   */
@@ -44,7 +43,7 @@ if (!defined('IN_CMS')) { exit(); }
                     <li class="fields">
                         <label for="role_name"><?php echo __('Name'); ?></label>
                         <br />
-                        <input type="text" id="role_name" class="textbox" maxlength="25" name="role[name]" size="24" value="<?php echo $role->name; ?>" />
+                        <input type="text" id="role_name" class="textbox required" maxlength="25" name="role[name]" size="24" value="<?php echo $role->name; ?>" required/>
                     </li>
                 </ol>
             </fieldset>
@@ -67,7 +66,13 @@ if (!defined('IN_CMS')) { exit(); }
                     </thead>
                     <tbody>
                         <tr class="no_permissions<?php if(!$hasNoPerm) echo ' hidden';?>">
-                            <td class="permission_name" colspan="3"><?php echo __('The <strong>:name</strong> role does not have any permissions assigned yet.', array(':name' => $role->name ) ); ?></td>
+                            <td class="permission_name" colspan="3">
+<?php if($action == 'add'): ?>
+                                <?php echo __("If you assign permissions to the new role, they'll appear here."); ?>
+<?php else: ?>
+                                <?php echo __('The <strong>:name</strong> role does not have any permissions assigned yet.', array(':name' => $role->name ) ); ?>
+<?php endif; ?>
+                            </td>
                         </tr>
 <?php foreach($role_permissions as $index => $id): ?>
 <?php $perm = Permission::findById($id); ?>

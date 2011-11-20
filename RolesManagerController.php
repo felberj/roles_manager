@@ -1,15 +1,14 @@
 <?php
 
 /**
-  *  Roles Manager plugin pre-release for Wolf CMS
-  *  Available on the forum
+  *  Roles Manager plugin for Wolf CMS
   * 
   *  Manage Roles and assign/remove permissions.
   *
   *  @author andrewmman <andrewmman@gmail.com>
   *  @package Plugins
   *  @subpackage roles_manager
-  *  @version 0.0.1
+  *  @version 0.1.4
   *  @copyright andrewmman, 2011
   *  @license http://www.gnu.org/licenses/gpl.html GPLv3 license
   */
@@ -43,6 +42,8 @@ class RolesManagerController extends PluginController {
         foreach($roles as $role) {
 	        $role->users = $this->_getUserCount($role->id);
 	    }
+	    // Add tablesorter script
+        Plugin::addJavascript('roles_manager', 'assets/js/jquery.tablesorter.min.js');
 
 	    $this->display('index', array( 'roles' => $roles ));
 	}
@@ -329,9 +330,95 @@ class RolesManagerController extends PluginController {
         $this->_redirectTo();
     }
 
-    /**
-      * @overwrite
-      */
+    /*---------------------------------------------------------------------------
+                              - ROLES Users actions -
+      ---------------------------------------------------------------------------*/
+
+    public function users($role_id) {
+        if ( ! is_numeric($role_id) ) {
+            Flash::set('error', __('The Role <strong>ID</strong> is not valid!'));
+            $this->_redirectTo();
+        }
+
+        // Trying to save?
+        if( get_request_method() == 'POST' ) {
+            return $this->_users_save();
+        }
+
+        $role = Role::findById( (int) $role_id );
+
+        if(!$role) {
+            Flash::set('error', 'Role not found!');
+            $this->_redirectTo('users');
+        }
+        $users = $this->_getUsersByRole($role);
+        $token = $this->_getTokenFor('users');
+
+        // Add tablesorter script
+        Plugin::addJavascript('roles_manager', 'assets/js/jquery.tablesorter.min.js');
+
+        $this->display('users', array(
+            'csrf_token' => $token,
+            'role'       => $role,
+            'users'      => $users
+        ));
+    }
+
+    private function _users_save() {
+        $data = $_POST['role'];
+
+        // CSRF checks
+        if (isset($_POST['csrf_token'])) {
+            $csrf_token = $_POST['csrf_token'];
+            if( ! $this->_isTokenValid($csrf_token,'users')) {
+                Flash::set('error', __('Invalid CSRF token found!'));
+                $this->_redirectTo('users/'.$data['id']);
+            }
+        }
+        else {
+            Flash::set('error', __('No CSRF token found!'));
+            $this->_redirectTo('users/'.$data['id']);
+        }
+
+        $errors = false;
+        $users_deleted = false;
+
+        $role_id = (int) $data['id'];
+        $role_name = $data['name'];
+
+        foreach($data['users'] as $i => $user) {
+            if( (!isset($user['keep_role']) ) || $user['keep_role'] != 1) {
+                $uid = (int) $user['user_id'];
+
+                // Protect the administrator role-user
+                if( $role_id == 1 && $user['user_id'] == 1 ) {
+                    Flash::set( 'error', __("You can't remove the '<strong>:name</strong>' role from user <strong>:user</strong>!", array( ':name' => $role_name, ':user' => $user['user_username'] )) );
+                    $this->_redirectTo('users/'.$role_id);
+                }
+
+                if($this->_removeRoleFromUser($role_id,$uid)) {
+                    $users_deleted[] = __("User <strong>:user</strong> no longer has the <strong>:role</strong> role.", array(':role' => $role_name, ':user' => $user['user_username']));
+                }
+                else {
+                    $errors[] = __("Couldn't delete the <strong>:role</strong> role from user <strong>:user</strong>.", array(':role' => $role_name, ':user' => $user['user_username']));
+                }
+            }
+        }
+
+        // Let's show a list of the users affected
+        if ($users_deleted !== false) {
+            Flash::setNow('success', implode('<br/>', $users_deleted));
+        }
+        // Do we had any problems?
+        if ($errors !== false) {
+            Flash::setNow('error', implode('<br/>', $errors));
+            $this->_redirectTo('users/'.$role_id);
+        }
+
+        $this->_redirectTo();
+    }
+
+    /* overwrite */
     public function render($view, $vars=array()) {
         if (defined('CMS_BACKEND')) {
             if ($this->layout) {

@@ -1,9 +1,9 @@
 div#roles_manager {
-  margin:0 auto;
-  padding:0.2em;
-  color:#2a2a2a;
-  font-size:12px;
-  font-weight:normal;
+    margin:0 auto;
+    padding:0.2em;
+    color:#2a2a2a;
+    font-size:12px;
+    font-weight:normal;
 }
 
 #roles_manager div.roles_manager_wrap {
@@ -14,11 +14,11 @@ div#roles_manager {
 
 /**
    -----------------------------
-         - INDEX TABLE -
+         - INDEX TABLES -
    -----------------------------
  **/
 
-#roles_manager table#roles_manager_roles {
+#roles_manager table {
     margin:0.2em auto 0.6em;
     width:100%;
     text-align:left;
@@ -26,17 +26,27 @@ div#roles_manager {
     border:1px solid #e3e3e3;
 }
 
-#roles_manager table#roles_manager_roles th,
-#roles_manager table.roles_permissions th {
+#roles_manager table th {
     margin:0 auto;
     height:2.4em;
-    background-color:#fafafa;
+    background-color:#f8f8f8;
     color:#3d3d3d;
     border-bottom:1px solid #e3e3e3;
 }
+#roles_manager table th.header {
+    cursor: pointer;
+    background-image: url(assets/images/sorter.png);
+    background-position:right 2px;
+    background-repeat:no-repeat;
+}
+#roles_manager table th.headerSortUp { background-color:#e8e8e8; background-image: url(assets/images/desc.png); }
+#roles_manager table th.headerSortDown { background-color:#e8e8e8; background-image: url(assets/images/asc.png); }
+#roles_manager table th.header:hover { color:#76a83a; background-position:right -22px; }
 
 #roles_manager th.roles_id,
-#roles_manager td.roles_id {
+#roles_manager td.roles_id,
+#roles_manager th.roles_user_id,
+#roles_manager td.roles_user_id {
     width:3em;
     padding:0 1em;
     text-align:right;
@@ -44,32 +54,54 @@ div#roles_manager {
 }
 
 #roles_manager th.roles_name,
-#roles_manager td.roles_name {
+#roles_manager td.roles_name,
+#roles_manager th.roles_user_name,
+#roles_manager td.roles_user_name,
+#roles_manager th.roles_user_username,
+#roles_manager td.roles_user_username {
     padding:0 1em;
     text-align:left;
 }
+#roles_manager td.roles_name,
+#roles_manager td.roles_user_name,
+#roles_manager td.roles_user_username {
+    border-left:1px solid #f2f2f2;
+}
+#roles_manager td.roles_name a { display:block; width:100%; }
 
-#roles_manager td.roles_name {
+#roles_manager th.roles_users,
+#roles_manager td.roles_users,
+#roles_manager th.roles_user_email,
+#roles_manager td.roles_user_email {
+    padding:0 1em;
+    text-align:center;
+    color:#5c5c5c;
     border-left:1px solid #f2f2f2;
 }
 
 #roles_manager th.roles_action,
-#roles_manager td.roles_action {
+#roles_manager td.roles_action,
+#roles_manager th.roles_user_action,
+#roles_manager td.roles_user_action {
     width:8em;
     text-align:center;
 }
 
-#roles_manager td.roles_action {
+#roles_manager td.roles_action,
+#roles_manager td.roles_user_action {
     border-left:1px solid #f2f2f2;
 }
 
-#roles_manager tr.role {
+#roles_manager tr.role,
+#roles_manager tr.role_user {
     line-height:2.5em;
     color:#363636;
     font-size:1em;
     border-top:1px solid #f2f2f2;
 }
-
+/*#roles_manager tr.role.even {
+    background-color:#f8f8f8;
+}*/
 /**
    -----------------------------
           - EDIT TABLE -
@@ -85,23 +117,23 @@ div#roles_manager {
     border:1px solid #ebebeb;
     text-align:left;
 }
-#roles_manager fieldset.roles_details legend {
+#roles_manager fieldset legend {
     margin:0.2em 0;
     padding:0.2em;
     font-size:1.2em;
     color:#adadad;
     text-align:left;
 }
-#roles_manager fieldset.roles_details ol.inputfields {
+#roles_manager fieldset ol.inputfields {
     list-style-type:none;
 }
 
-#roles_manager fieldset.roles_details ol.inputfields li.fields {
+#roles_manager fieldset ol.inputfields li.fields {
     margin:0.2em 0;
     padding:0.1em 0;
 }
 
-#roles_manager fieldset.roles_details ol label {
+#roles_manager fieldset ol label {
     font-size:1.1em;
     color:#5c5c5c;
 }
@@ -206,6 +238,16 @@ div#roles_manager {
     border:1px solid #ececec;        
 }
 
+/**
+   -----------------------------
+         - USER TABLE -
+   -----------------------------
+ **/
+#roles_manager table#role_users caption {
+    margin:0 0.2em 0.8em;
+    font-size:1.2em;
+    text-align:left;    
+}
 /**
    -----------------------------
      - GENERAL FORM ELEMENTS - 

@@ -5,9 +5,10 @@
  *
  * @package Plugins
  * @subpackage roles_manager
+ * @version 0.1.2
  *
  * @author Dirk Digweed <dirkdigweed@gmx.net>
- * @version Wolf 0.7.5
+ * @todo include new strings
  */
 
 return array(

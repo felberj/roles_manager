@@ -5,15 +5,19 @@
  *
  * @package Plugins
  * @subpackage roles_manager
+ * @version 0.1.4
  *
  * @author Your Name <email@domain.com>
- * @version Wolf 0.7.5
  */
 
 return array(
+    "1 user" => "",
+	":n users" => "",
+	":role Users" => "",
 	"Add Role" => "",
 	"Allow" => "",
 	"Are you sure you want to delete this role?" => "",
+	"Assigned to" => "",
 	"Assign permission ':name'" => "",
 	"Cancel" => "",
 	"Create new Role" => "",
@@ -22,6 +26,7 @@ return array(
 	"Edit Role" => "",
 	"Edit the ':name' role" => "",
 	"ID" => "ID",
+	"If you assign permissions to the new role, they'll appear here." => "",
 	"Invalid CSRF token found!" => "",
 	"Manage Roles" => "",
 	"Manage Roles and their permissions." => "",
@@ -47,6 +52,7 @@ return array(
 	"The <strong>:name</strong> role has all the available permissions already assigned." => "",
 	"The <strong>:name</strong> role was saved succesfully!" => "",
 	"The Role <strong>ID</strong> is not valid!" => "",
+	"Users with the <strong>:role</strong> role." => "",
 	"You can't delete the '<strong>:name</strong>' role!" => "",
 	"You do not have permission to activate or use this plugin!" => "",
 	"You must specify the Role's <strong>name</strong>!" => "",

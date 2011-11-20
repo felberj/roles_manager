@@ -8,7 +8,7 @@
   *  @author andrewmman <andrewmman@gmail.com>
   *  @package Plugins
   *  @subpackage roles_manager
-  *  @version 0.0.1
+  *  @version 0.1.4
   *  @copyright andrewmman, 2011
   *  @license http://www.gnu.org/licenses/gpl.html GPLv3 license
   */
@@ -17,6 +17,11 @@ if (!defined('IN_CMS')) { exit(); }
 ?>
 <h1><?php echo __('Documentation'); ?></h1>
 <div id="roles_manager" class="documentation">
+<?php if(isset($message)): ?>
+    <div id="documentation_message">
+        <p><?php echo $message; ?></p>
+    </div>
+<?php endif; ?>
     <div class="roles_manager_wrap">
         <h3>Users, Roles and Permissions</h3>
         <p><strong>Users</strong> in Wolf will have a set of privileges that are inherited by the <strong>Roles</strong> those users have. Those privileges are known as <strong>Permissions</strong> and they are assigned to <strong>Roles</strong>.</p>

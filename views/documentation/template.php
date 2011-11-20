@@ -5,10 +5,10 @@
   * 
   *  Manage Roles and assign/remove permissions.
   *
-  *  @author Your Name <youremail@somewhere.com>
+  *  @author andrewmman <andrewmman@gmail.com>
   *  @package Plugins
   *  @subpackage roles_manager
-  *  @version 0.0.1
+  *  @version 0.1.4
   *  @copyright andrewmman, 2011
   *  @license http://www.gnu.org/licenses/gpl.html GPLv3 license
   */

@@ -5,15 +5,19 @@
  *
  * @package Plugins
  * @subpackage roles_manager
+ * @version 0.1.4
  *
- * @author Fortron <webmasterkubes@gmail.com>
- * @version Wolf 0.7.5
+ * @author Fortron <webkluns@hotmail.com>
  */
 
 return array(
+    "1 user" => "1 gebruiker",
+	":n users" => ":n gebruikers",
+	":role Users" => ":role Gebruikers",
 	"Add Role" => "Rol toevoegen",
 	"Allow" => "Toestaan",
 	"Are you sure you want to delete this role?" => "Weet je zeker dat je deze rol wilt verwijderen?",
+	"Assigned to" => "Toegewezen aan",
 	"Assign permission ':name'" => "Toewijzen rechten ':name'",
 	"Cancel" => "Annuleer",
 	"Create new Role" => "Nieuwe Rol aanmaken",
@@ -22,6 +26,7 @@ return array(
 	"Edit Role" => "Rol bewerken",
 	"Edit the ':name' role" => "Rol ':name' bewerken",
 	"ID" => "ID",
+	"If you assign permissions to the new role, they'll appear here." => "Rechten toegewezen aan de nieuwe rol komen hier te staan.",
 	"Invalid CSRF token found!" => "Ongeldige CSRF token gevonden!",
 	"Manage Roles" => "Rollen beheren",
 	"Manage Roles and their permissions." => "Beheer rollen en hun rechten",
@@ -47,8 +52,8 @@ return array(
 	"The <strong>:name</strong> role has all the available permissions already assigned." => "Aan rol <strong>:name</strong> zijn alle rechten al toegewezen.",
 	"The <strong>:name</strong> role was saved succesfully!" => "De <strong>:name</strong> rol is succesvol bewaard!",
 	"The Role <strong>ID</strong> is not valid!" => "De <strong>ID</strong> van deze rol is niet geldig!",
+	"Users with the <strong>:role</strong> role." => "Gebruikers met <strong>:role</strong> rol.",
 	"You can't delete the '<strong>:name</strong>' role!" => "Je kunt rol <strong>':name'</strong> niet verwijderen!",
-    "You do not have permission to access the requested page!" => "Je hebt onvoldoende rechten om toegang tot deze pagina te krijgen!",
 	"You do not have permission to activate or use this plugin!" => "Je hebt onvoldoende rechten om de plugin te activeren of te gebruiken!",
 	"You must specify the Role's <strong>name</strong>!" => "Je moet rol <strong>name</strong> een naam geven!",
 );
