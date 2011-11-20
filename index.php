@@ -29,6 +29,4 @@ Plugin::setInfos(array(
     'type'	=> 'backend'
 ));
 
-if (Plugin::isEnabled('roles_manager')) {
-    Plugin::addController('roles_manager','Roles Manager','admin_edit',true);
-}
+Plugin::addController('roles_manager','Roles Manager','admin_edit',true);

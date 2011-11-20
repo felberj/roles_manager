@@ -233,14 +233,12 @@ class RolesManagerController extends PluginController {
                 Flash::set('error', __('The <strong>:name</strong> role could not be saved!', array( ':name' => $role->name )));
                 $action_url = ($action == 'add') ? 'add' : 'edit/'.$role->id ;
 
-                // Notify Dashboard
-                if(Plugin::isEnabled('dashboard')) {
-                    $message = __(':username tried to :action the <strong>:name</strong> role, but it couldn\'t be saved!', array(
-                        ':name' => ($action == 'add') ? $role->name : sprintf('<a href="%s">%s</a>', get_url('plugin/roles_manager/edit/'.$role->id), $role->name),
-                        ':action' => ($action == 'add') ? 'add' : 'edit'
-                    ));
-                    Observer::notify('log_event', $message, 'roles_manager', 3);
-                }
+                // Notify
+                $message = __(':username tried to :action the <strong>:name</strong> role, but it couldn\'t be saved!', array(
+                    ':name' => ($action == 'add') ? $role->name : sprintf('<a href="%s">%s</a>', get_url('plugin/roles_manager/edit/'.$role->id), $role->name),
+                    ':action' => ($action == 'add') ? 'add' : 'edit'
+                ));
+                Observer::notify('log_event', $message, 'roles_manager', 3);
 
                 redirect( get_url('plugin/roles_manager/'.$action_url) );
             }
@@ -248,14 +246,12 @@ class RolesManagerController extends PluginController {
                 if( RolePermission::savePermissionsFor( (int)$role->id, $role->permissions ) ) {
                     Flash::set( 'success', __('The <strong>:name</strong> role was saved succesfully!', array( ':name' => $role->name )) );
 
-                    // Notify Dashboard
-                    if(Plugin::isEnabled('dashboard')) {                        
-                        $message = __('Role <strong>:name</strong> was :action by :username.', array(
-                            ':name' => sprintf('<a href="%s">%s</a>', get_url('plugin/roles_manager/edit/'.$role->id), $role->name),
-                            ':action' => ($action == 'add') ? 'added' : 'revised'
-                        ));
-                        Observer::notify('log_event', $message, 'roles_manager', 5);
-                    }
+                    // Notify                     
+                    $message = __('Role <strong>:name</strong> was :action by :username.', array(
+                        ':name' => sprintf('<a href="%s">%s</a>', get_url('plugin/roles_manager/edit/'.$role->id), $role->name),
+                        ':action' => ($action == 'add') ? 'added' : 'revised'
+                    ));
+                    Observer::notify('log_event', $message, 'roles_manager', 5);
 
                     redirect( get_url('plugin/roles_manager') );
                 }
@@ -264,14 +260,12 @@ class RolesManagerController extends PluginController {
                     Flash::set( 'error', __('The <strong>:name</strong> role <strong>permissions</strong> could not be saved!', array( ':name' => $role->name )) );
                     $action_url = ($submit == 'add') ? 'add' : 'edit/' . $role->id;
 
-                    // Notify Dashboard
-                    if(Plugin::isEnabled('dashboard')) {
-                        $message = __(':username tried to :action the <strong>:name</strong> role, but it couldn\'t be saved!', array(
-                            ':name' => ($action == 'add') ? $role->name : sprintf('<a href="%s">%s</a>', get_url('plugin/roles_manager/edit/'.$role->id), $role->name),
-                            ':action' => ($action == 'add') ? 'add' : 'edit'
-                        ));
-                        Observer::notify('log_event', $message, 'roles_manager', 3);
-                    }
+                    // Notify
+                    $message = __(':username tried to :action the <strong>:name</strong> role, but it couldn\'t be saved!', array(
+                        ':name' => ($action == 'add') ? $role->name : sprintf('<a href="%s">%s</a>', get_url('plugin/roles_manager/edit/'.$role->id), $role->name),
+                        ':action' => ($action == 'add') ? 'add' : 'edit'
+                    ));
+                    Observer::notify('log_event', $message, 'roles_manager', 3);
 
                     redirect( get_url('plugin/roles_manager/' . $action_url) );                    
                 }
@@ -301,11 +295,9 @@ class RolesManagerController extends PluginController {
                 // Now let's try deleting the role
                 if( $role->delete() ) {
 
-                    // Notify Dashboard
-                    if(Plugin::isEnabled('dashboard')) {
-                        $message = __('Role <strong>:name</strong> was deleted by :username.', array( ':name' => $role->name ));
-                        Observer::notify('log_event', $message, 'roles_manager', 5);
-                    }
+                    // Notify
+                    $message = __('Role <strong>:name</strong> was deleted by :username.', array( ':name' => $role->name ));
+                    Observer::notify('log_event', $message, 'roles_manager', 5);
 
                     Flash::set('success', __('Role <strong>:name</strong> has been deleted!', array( ':name' => $role->name )));
                 }
@@ -314,26 +306,21 @@ class RolesManagerController extends PluginController {
                     $permissions = Flash::get('role_permissions');
                     RolePermission::savePermissionsFor( (int)$role->id, $role->permissions );
 
-                    // Notify Dashboard
-                    if(Plugin::isEnabled('dashboard')) {
-                        $message = __(':username tried to delete the <strong>:name</strong> role, but something went wrong!', array(
-                            ':name' => sprintf('<a href="%s">%s</a>', get_url('plugin/roles_manager/edit/'.$role->id), $role->name),
-                        ));
-                        Observer::notify('log_event', $message, 'roles_manager', 3);
-                    }
+                    // Notify
+                    $message = __(':username tried to delete the <strong>:name</strong> role, but something went wrong!', array(
+                        ':name' => sprintf('<a href="%s">%s</a>', get_url('plugin/roles_manager/edit/'.$role->id), $role->name),
+                    ));
+                    Observer::notify('log_event', $message, 'roles_manager', 3);
 
                     Flash::set('error', __('Role <strong>:name</strong> could not be deleted!', array( ':name' => $role->name )));
                 }
             }
             else {
-
-                // Notify Dashboard
-                if(Plugin::isEnabled('dashboard')) {
-                    $message = __(':username tried to delete the <strong>:name</strong> role, but something went wrong!', array(
-                        ':name' => sprintf('<a href="%s">%s</a>', get_url('plugin/roles_manager/edit/'.$role->id), $role->name),
-                    ));
-                    Observer::notify('log_event', $message, 'roles_manager', 3);
-                }
+                // Notify
+                $message = __(':username tried to delete the <strong>:name</strong> role, but something went wrong!', array(
+                    ':name' => sprintf('<a href="%s">%s</a>', get_url('plugin/roles_manager/edit/'.$role->id), $role->name),
+                ));
+                Observer::notify('log_event', $message, 'roles_manager', 3);
 
                 Flash::set( 'error', __('The :name role <strong>permissions</strong> could not be deleted!', array( ':name' => $role->name )));
             }
