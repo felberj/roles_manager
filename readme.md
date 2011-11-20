@@ -12,6 +12,13 @@ Roles Manager
 
 ## Changelog
 
+#### Version 0.1.4
+
+- + added jQuery.tablesorter
+- + added sorting to roles table
+- + added role's users
+- + added sorting to role users table
+
 #### Version 0.1.2
 
 - . fix css issues with Dashboard stylesheet
