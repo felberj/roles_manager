@@ -19,42 +19,44 @@ if (!defined('IN_CMS')) { exit(); }
 
 class RolesManagerController extends PluginController {
 
-    public function __construct() {
-        AuthUser::load();
-        if (!AuthUser::isLoggedIn()) {
-            redirect(get_url('login'));
-        } else if (!AuthUser::hasPermission('admin_edit')) {
-            Flash::set('error', __('You do not have permission to access the requested page!'));
-            redirect(get_url());
-        }
+    const PLUGIN_ID = 'roles_manager';
 
-		if (defined('CMS_BACKEND')) {
-            define('PLUGIN_ROLESMANAGER_VIEWS_BASE', 'roles_manager/views/');
+    public function __construct() {
+        if (defined('CMS_BACKEND')) {
+            AuthUser::load();
+            if (!AuthUser::isLoggedIn()) {
+                redirect(get_url('login'));
+            }
+            else if (!AuthUser::hasPermission('admin_edit')) {
+                Flash::set('error', __('You do not have permission to access the requested page!'));
+                redirect(get_url());
+            }
+
 			$this->setLayout('backend');
-            $this->assignToLayout('sidebar', new View('../../plugins/roles_manager/views/sidebar'));
+            $this->assignToLayout('sidebar', new View( PLUGINS_ROOT.DS.self::PLUGIN_ID.DS.'views/sidebar'));
 		}
-		else {
-            define('PLUGIN_ROLESMANAGER_VIEWS_BASE', PLUGINS_ROOT.'/roles_manager/views/');
-		}		
     }
 
 	public function index() {
 	    $roles = Role::findAllFrom('Role');
-	    $this->display(
-            PLUGIN_ROLESMANAGER_VIEWS_BASE . 'index',
-            array( 'roles' => $roles )
-        );
+
+        foreach($roles as $role) {
+	        $role->users = $this->_getUserCount($role->id);
+	    }
+
+	    $this->display('index', array( 'roles' => $roles ));
 	}
 
 	public function documentation() {
-	    $locale = strtolower(i18n::getLocale());
-	    $local_doc = $locale . '-documentation';
-	    $path = PLUGINS_ROOT . '/roles_manager/views/documentation/';
+	    // Check for localized documentation or fallback to the default english and display notice
+        $lang = ( $user = AuthUser::getRecord() ) ? strtolower($user->language) : 'en';
 
-	    if (!file_exists( $path . $local_doc . '.php' ))
-	        $local_doc = 'en-documentation';
-
-	    $this->display( PLUGIN_ROLESMANAGER_VIEWS_BASE . 'documentation/' . $local_doc );
+        if( !file_exists( PLUGINS_ROOT.DS.self::PLUGIN_ID.DS.'views/documentation/'.$lang.'.php') ) {            
+            $message = __("There's no translation for the documentation in your language, displaying the default english.");
+            $this->display('documentation/en', array( 'message' => $message ));
+        }
+        else
+            $this->display('documentation/'.$lang);
 	}
 
 /*---------------------------------------------------------------------------
@@ -69,7 +71,7 @@ class RolesManagerController extends PluginController {
 
         // Instantiate and display the form
         $role = new Role;
-        $token = SecureToken::generateToken( BASE_URL.'plugin/roles_manager/add' );
+        $token = $this->_getTokenFor('add');
         $permissions = Permission::getPermissions();
         $role_permissions = array();
         $permissions_disabled = array();
@@ -78,8 +80,7 @@ class RolesManagerController extends PluginController {
         foreach ($permissions as $perm) {
             array_push($permissions_disabled, $perm->id);
         }
-        $this->display(
-            PLUGIN_ROLESMANAGER_VIEWS_BASE . 'edit', array(
+        $this->display('edit', array(
                 'action' => 'add',
                 'csrf_token' => $token,
                 'role' => $role,
@@ -92,7 +93,8 @@ class RolesManagerController extends PluginController {
 
     public function edit($id) {
         if (!is_numeric($id)) {
-            redirect( get_url('plugin/roles_manager') );
+            Flash::set('error', __('The Role <strong>ID</strong> is not valid!'));
+            $this->_redirectTo();
         }
 
         // Trying to save?
@@ -104,7 +106,7 @@ class RolesManagerController extends PluginController {
 
         if(!$role) {
             Flash::set('error', 'Role not found!');
-            redirect( get_url('plugin/roles_manager') );
+            $this->_redirectTo();
         }
 
         // Set data
@@ -119,11 +121,10 @@ class RolesManagerController extends PluginController {
                 array_push($permissions_disabled, $perm->id);
         }
 
-        $token = SecureToken::generateToken( BASE_URL . 'plugin/roles_manager/edit' );
+        $token = $this->_getTokenFor('edit');
 
         // Display the form and pass the data to the form
-        $this->display(
-            PLUGIN_ROLESMANAGER_VIEWS_BASE . 'edit', array(
+        $this->display('edit', array(
                 'action' => 'edit',
                 'csrf_token' => $token,
                 'role' => $role,
@@ -144,9 +145,8 @@ class RolesManagerController extends PluginController {
         // CSRF checks
         if (isset($_POST['csrf_token'])) {
             $csrf_token = $_POST['csrf_token'];
-            if ( !SecureToken::validateToken( $csrf_token, BASE_URL . 'plugin/roles_manager/' . $action ) ) {
+            if( ! $this->_isTokenValid($csrf_token,$action) )
                 $errors[] = __('Invalid CSRF token found!');
-            }
         }
         else {
             $errors[] = __('No CSRF token found!');
@@ -202,7 +202,7 @@ class RolesManagerController extends PluginController {
             // Set the errors to be displayed.
             Flash::setNow('error', implode('<br/>', $errors));
             // Get the data
-            $token = SecureToken::generateToken( BASE_URL . 'plugin/roles_manager/' . $action );
+            $token = $this->_getTokenFor($action);
             $permissions = Permission::getPermissions();
             $role_permissions = array();
             $permissions_disabled = array();
@@ -214,9 +214,7 @@ class RolesManagerController extends PluginController {
                     array_push($permissions_disabled, $perm->id);
             }
 
-            $this->display(
-                PLUGIN_ROLESMANAGER_VIEWS_BASE . 'edit',
-                array(
+            $this->display('edit', array(
                     'action' => $action,
                     'csrf_token' => $token,
                     'role' => $role,
@@ -225,7 +223,6 @@ class RolesManagerController extends PluginController {
                     'permissions_disabled' => $permissions_disabled
                 )
             );
-
         }
         else {
             if( !$role->save() ) {
@@ -240,20 +237,20 @@ class RolesManagerController extends PluginController {
                 ));
                 Observer::notify('log_event', $message, 'roles_manager', 3);
 
-                redirect( get_url('plugin/roles_manager/'.$action_url) );
+                $this->_redirectTo($action_url);
             }
             else {
                 if( RolePermission::savePermissionsFor( (int)$role->id, $role->permissions ) ) {
                     Flash::set( 'success', __('The <strong>:name</strong> role was saved succesfully!', array( ':name' => $role->name )) );
 
-                    // Notify                     
+                    // Notify
                     $message = __('Role <strong>:name</strong> was :action by :username.', array(
                         ':name' => sprintf('<a href="%s">%s</a>', get_url('plugin/roles_manager/edit/'.$role->id), $role->name),
                         ':action' => ($action == 'add') ? 'added' : 'revised'
                     ));
                     Observer::notify('log_event', $message, 'roles_manager', 5);
 
-                    redirect( get_url('plugin/roles_manager') );
+                    $this->_redirectTo();
                 }
                 else {
                     Flash::set('post_role', (object) $role_data);
@@ -267,7 +264,7 @@ class RolesManagerController extends PluginController {
                     ));
                     Observer::notify('log_event', $message, 'roles_manager', 3);
 
-                    redirect( get_url('plugin/roles_manager/' . $action_url) );                    
+                    $this->_redirectTo($action_url);
                 }
             }
         }
@@ -280,7 +277,7 @@ class RolesManagerController extends PluginController {
             $admin_role = Role::findById(1);
             $admin_role_name = ($admin_role) ? $admin_role->name : 'administrator';
             Flash::set( 'error', __("You can't delete the '<strong>:name</strong>' role!", array( ':name' => $admin_role_name )) );
-            redirect( get_url('plugin/roles_manager') );
+            $this->_redirectTo();
         }
 
         if($role = Role::findById($id)) {
@@ -291,7 +288,7 @@ class RolesManagerController extends PluginController {
 
             // First delete the role_permissions relationship
             if( RolePermission::savePermissionsFor( (int)$role->id, $role->permissions ) ) {
-    
+
                 // Now let's try deleting the role
                 if( $role->delete() ) {
 
@@ -328,12 +325,84 @@ class RolesManagerController extends PluginController {
         else {
             Flash::set('error', __('Role not found!'));
         }
-                
-        redirect( get_url('plugin/roles_manager') );
-    }        
 
-    private static function getCorePermissions() {
-        $core_perms = array(
+        $this->_redirectTo();
+    }
+
+    /**
+      * @overwrite
+      */
+    public function render($view, $vars=array()) {
+        if (defined('CMS_BACKEND')) {
+            if ($this->layout) {
+                $this->layout_vars['content_for_layout'] = new View( PLUGINS_ROOT.DS.self::PLUGIN_ID.DS.'views'.DS.$view, $vars);
+                return new View('../layouts/'.$this->layout, $this->layout_vars);
+            }
+            else
+                return new View(PLUGINS_ROOT.DS.self::PLUGIN_ID.DS.'views'.DS.$view, $vars);
+        }
+        else
+            redirect(get_url('login'));
+    }
+
+    /*---------------------------------------------------------------------------
+                                   - HELPERS -
+    ---------------------------------------------------------------------------*/
+
+    private function _redirectTo($action='index') {
+        $url = 'plugin/'.self::PLUGIN_ID.'/'.$action;
+        redirect( get_url($url) );
+    }
+
+    private function _getTokenFor($action) {
+        $url = BASE_URL.'plugin/'.self::PLUGIN_ID.'/'.$action;
+        return SecureToken::generateToken($url);
+    }
+
+    private function _isTokenValid($token, $action) {
+        $url = BASE_URL.'plugin/'.self::PLUGIN_ID.'/'.$action;
+        return (boolean) SecureToken::validateToken($token, $url);
+    }
+
+    private function _getUserCount($rid) {
+        $sql = "SELECT COUNT(user_id) FROM ".TABLE_PREFIX."user_role WHERE role_id=".(int)$rid;
+        $stmt = Record::getConnection()->prepare($sql);
+        $stmt->execute();
+
+        return (int) $stmt->fetchColumn();
+    }
+
+    private function _getUsersByRole(Role $role) {
+        if(!($role instanceof Role))
+            return false;
+
+        $sql = "SELECT user_id FROM ".TABLE_PREFIX."user_role WHERE role_id=".(int)$role->id;
+        $stmt = Record::getConnection()->prepare($sql);
+        $stmt->execute();
+
+        $users = array();
+        while( $uid = $stmt->fetchColumn()) {
+            $user = User::findById($uid);
+            if($user !== false) {
+                unset($user->password);
+                unset($user->salt);
+                $users[] = $user;
+            }
+        }
+        return $users;
+    }
+
+    private function _removeRoleFromUser($rid,$uid) {
+        $tablename = Record::tableNameFromClassName('UserRole');
+        $sql = 'DELETE FROM '.$tablename.' WHERE role_id='.(int)$rid.' AND user_id='.(int)$uid;
+        $pdo = Record::getConnection();
+        return $pdo->exec($sql) !== false;
+    }
+
+    // Not used but keep it
+    /*
+    private static function _getCorePermissions() {
+        return array(
             'admin_view',
             'admin_edit',
             'user_view',
@@ -353,7 +422,7 @@ class RolesManagerController extends PluginController {
             'page_edit',
             'page_delete'
         );
-        
-        return $core_perms;
     }
+    */
+
 }
