@@ -56,4 +56,12 @@ return array(
 	"You can't delete the '<strong>:name</strong>' role!" => "",
 	"You do not have permission to activate or use this plugin!" => "",
 	"You must specify the Role's <strong>name</strong>!" => "",
+    "Assigned to" => "",
+    "Edit the ':name' role" => "",
+    "Manage users with the ':name' role" => "",
+    ":n users" => "",
+	"1 user" => "",
+	"no users" => "",
+	"no_permissions" => "",
+	"If you assign permissions to the new role, they'll appear here." => "",
 );

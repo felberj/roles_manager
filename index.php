@@ -25,7 +25,7 @@ Plugin::setInfos(array(
     'author'	=> 'andrewmman',
     'update_url'  => 'http://andrewmman.byethost7.com/wolfplugins.xml',
     'website'     => 'http://www.wolfcms.org/forum/post9634.html',
-    'require_wolf_version' => '0.7.5', 
+    'require_wolf_version' => '0.8.0', 
     'type'	=> 'backend'
 ));
 

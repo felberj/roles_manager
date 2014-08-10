@@ -1,7 +1,8 @@
 <?php
 
 /**
-  *  Roles Manager plugin for Wolf CMS
+  *  Roles Manager plugin pre-release for Wolf CMS
+  *  Available on the forum
   * 
   *  Manage Roles and assign/remove permissions.
   *

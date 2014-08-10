@@ -1,7 +1,8 @@
 <?php
 
 /**
-  *  Roles Manager plugin for Wolf CMS
+  *  Roles Manager plugin pre-release for Wolf CMS
+  *  Available on the forum
   * 
   *  Manage Roles and assign/remove permissions.
   *
@@ -55,13 +56,13 @@ if (!defined('IN_CMS')) { exit(); }
                     </td>
                     <td class="roles_action">
                         <a href="<?php echo get_url('plugin/roles_manager/edit/'.$role->id); ?>">
-                            <img src="<?php echo ICONS_URI; ?>rename-16.png" class="inline_icon" title="<?php echo __("Edit the ':name' role", array( ':name' => $role->name )); ?>" alt="<?php echo __("Edit the ':name' role", array( ':name' => $role->name )); ?>"/>
+                            <img src="<?php echo ICONS_URI; ?>action-rename-16.png" class="inline_icon" title="<?php echo __("Edit the ':name' role", array( ':name' => $role->name )); ?>" alt="<?php echo __("Edit the ':name' role", array( ':name' => $role->name )); ?>"/>
                         </a>
 <?php if($admin_protect): ?>
-                        <img src="<?php echo ICONS_URI; ?>delete-disabled-16.png" class="inline_icon" title="<?php echo __("Deleting the ':name' role is disabled", array( ':name' => $role->name )); ?>" alt="<?php echo __("Deleting the ':name' role is disabled", array( ':name' => $role->name )); ?>" />
+                        <img src="<?php echo ICONS_URI; ?>action-delete-disabled-16.png" class="inline_icon" title="<?php echo __("Deleting the ':name' role is disabled", array( ':name' => $role->name )); ?>" alt="<?php echo __("Deleting the ':name' role is disabled", array( ':name' => $role->name )); ?>" />
 <?php else: ?>
                         <a href="<?php echo get_url('plugin/roles_manager/delete/' . $role->id); ?>" onclick="return confirm('<?php echo __('Are you sure you want to delete this role?'); ?>') ">
-                            <img src="<?php echo ICONS_URI; ?>delete-16.png" class="inline_icon" title="<?php echo __("Delete the ':name' role", array( ':name' => $role->name )); ?>" alt="<?php echo __("Delete the ':name' role", array( ':name' => $role->name )); ?>" />
+                            <img src="<?php echo ICONS_URI; ?>action-delete-16.png" class="inline_icon" title="<?php echo __("Delete the ':name' role", array( ':name' => $role->name )); ?>" alt="<?php echo __("Delete the ':name' role", array( ':name' => $role->name )); ?>" />
                         </a>
 <?php endif; ?>
                     </td>

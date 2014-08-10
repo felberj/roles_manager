@@ -1,7 +1,8 @@
 <?php
 
 /**
-  *  Roles Manager plugin for Wolf CMS
+  *  Roles Manager plugin pre-release for Wolf CMS
+  *  Available on the forum
   * 
   *  Manage Roles and assign/remove permissions.
   *
@@ -19,7 +20,7 @@ if (!defined('IN_CMS')) { exit(); }
 <div class="box">
     <p class="button">
         <a href="<?php echo get_url('plugin/roles_manager/add'); ?>">
-            <img src="<?php echo ICONS_URI; ?>add-32.png" align="middle" title="<?php echo __('Create new Role'); ?>" alt="<?php echo __('Create new Role'); ?>" />
+            <img src="<?php echo ICONS_URI; ?>action-add-32.png" align="middle" title="<?php echo __('Create new Role'); ?>" alt="<?php echo __('Create new Role'); ?>" />
             <?php echo __('Create new Role'); ?>
         </a>
     </p>
@@ -31,7 +32,7 @@ if (!defined('IN_CMS')) { exit(); }
     </p>
     <p class="button">
         <a href="<?php echo get_url('plugin/roles_manager/documentation'); ?>">
-            <img src="<?php echo ICONS_URI; ?>file-unknown-32.png" align="middle" alt="dir icon" />
+            <img src="<?php echo ICONS_URI; ?>documentation-32-ns.png" align="middle" alt="dir icon" />
             <?php echo __('Documentation'); ?>
         </a>
     </p>
